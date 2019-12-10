@@ -1,0 +1,75 @@
+<div class="wrapper">
+    <div id="formContent">
+        <h1>Add Item</h1>
+        <form #addItemForm="ngForm" (ngSubmit)="addItemForm.valid && onSubmit(addItemForm)">
+            <!--Get auction name-->
+            <input type="text" #auctionName="ngModel" [(ngModel)]="item.auctionName" name="auctionName" placeholder="Auction Name"
+            required  [ngClass]="{'invalid-textbox' :addItemForm.submitted && !auctionName.valid }">
+            <!--Validate auction name input-->
+            <div *ngIf="addItemForm.submitted && !auctionName.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+
+            <!--Get item code-->
+            <input type="text" #itemCode="ngModel" [(ngModel)]="item.itemCode" name="itemCode" placeholder="Item Code"
+            required  [ngClass]="{'invalid-textbox' :addItemForm.submitted && !itemCode.valid }">
+            <!--Validate item code input-->
+            <div *ngIf="addItemForm.submitted && !itemCode.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+
+            <!--Get item name-->
+            <input type="text" #itemName="ngModel" [(ngModel)]="item.itemName" name="itemName" placeholder="Item Name"
+            required  [ngClass]="{'invalid-textbox' :addItemForm.submitted && !itemName.valid }">
+            <!--Validate item name input-->
+            <div *ngIf="addItemForm.submitted && !itemName.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <br>
+
+            <label>Price:</label>
+            <br>
+            <!--Get item price-->
+            <input type="number" #price="ngModel" [(ngModel)]="item.price" name="price" placeholder="Price"
+            required  [ngClass]="{'invalid-textbox' :addItemForm.submitted && !price.valid }">
+            <!--Validate item name input-->
+            <div *ngIf="addItemForm.submitted && !price.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <br>
+
+            <label>Quantity:</label>
+            <!--Get quantity-->
+            <input type="number" #quantity="ngModel" [(ngModel)]="item.quantity" name="quantity" placeholder="Quantity"
+            required  [ngClass]="{'invalid-textbox' :addItemForm.submitted && !quantity.valid }">
+            <!--Validate quantity input-->
+            <div *ngIf="addItemForm.submitted && !quantity.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <br>
+
+            <!--Get description-->
+            <textarea type="text" #description="ngModel" [(ngModel)]="item.description" name="description" placeholder="Description"
+            required  [ngClass]="{'invalid-textbox' :addItemForm.submitted && !description.valid }"></textarea>
+            <!--Validate description input-->
+            <div *ngIf="addItemForm.submitted && !description.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+
+            <!--Submit button-->
+            <input type="submit" value="Add Item">
+        </form>
+
+        <!-- Success message -->
+        <div class="success" *ngIf="showSucessMessage">
+            Saved successfully
+        </div>
+        
+        <!-- Error message -->
+        <div class="alert" *ngIf="serverErrorMessages">
+            {{serverErrorMessages}}
+        </div>
+    </div>
+</div>
+    
+    

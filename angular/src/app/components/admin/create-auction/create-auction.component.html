@@ -1,0 +1,73 @@
+<div class="wrapper">
+    <div id="formContent">
+        <h1>Create Auction</h1>
+        <form #createAuctionForm="ngForm" (ngSubmit)="createAuctionForm.valid && onSubmit(createAuctionForm)">
+            <!--Get auction name-->
+            <input type="text" #auctionName="ngModel" [(ngModel)]="auction.auctionName" name="auctionName" placeholder="Auction Name"
+            required  [ngClass]="{'invalid-textbox' :createAuctionForm.submitted && !auctionName.valid }">
+            <!--Validate auction name input-->
+            <div *ngIf="createAuctionForm.submitted && !auctionName.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+
+            <!--Get organizer-->
+            <input type="text" #organizer="ngModel" [(ngModel)]="auction.organizer" name="organizer" placeholder="Organizer"
+            required  [ngClass]="{'invalid-textbox' :createAuctionForm.submitted && !organizer.valid }">
+            <!--Validate organizer input-->
+            <div *ngIf="createAuctionForm.submitted && !auctionName.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <br>
+
+            <label>Max Items:</label>
+            <!--Get max items-->
+            <input type="number" #maxItems="ngModel" [(ngModel)]="auction.maxItems" name="maxItems" placeholder="Max Items"
+            required  [ngClass]="{'invalid-textbox' :createAuctionForm.submitted && !maxItems.valid }">
+            <!--Validate max items input-->
+            <div *ngIf="createAuctionForm.submitted && !maxItems.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+
+            <!--Get address-->
+            <input type="text" #address="ngModel" [(ngModel)]="auction.address" name="address" placeholder="Address"
+            required  [ngClass]="{'invalid-textbox' :createAuctionForm.submitted && !address.valid }">
+            <!--Validate address input-->
+            <div *ngIf="createAuctionForm.submitted && !address.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+
+            <!--Get date and time-->
+            <input type="date" #dateTime="ngModel" [(ngModel)]="auction.dateTime" name="dateTime" placeholder="Date and Time"
+            required  [ngClass]="{'invalid-textbox' :createAuctionForm.submitted && !dateTime.valid }">
+            <!--Validate date and time input-->
+            <div *ngIf="createAuctionForm.submitted && !dateTime.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <br>
+
+            <label>Fee:</label>
+            <br>
+            <!--Get fee-->
+            <input type="number" #fee="ngModel" [(ngModel)]="auction.fee" name="fee" placeholder="Fee"
+            required  [ngClass]="{'invalid-textbox' :createAuctionForm.submitted && !fee.valid }">
+            <!--Validate fee input-->
+            <div *ngIf="createAuctionForm.submitted && !fee.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+
+            <!--Submit button-->
+            <input type="submit" value="Create Auction">
+        </form>
+
+        <!-- Success message -->
+        <div class="success" *ngIf="showSucessMessage">
+            Saved successfully
+        </div>
+        
+        <!-- Error message -->
+        <div class="alert" *ngIf="serverErrorMessages">
+            {{serverErrorMessages}}
+        </div>
+    </div>
+</div>
+

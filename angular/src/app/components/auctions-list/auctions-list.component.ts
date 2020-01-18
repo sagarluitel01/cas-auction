@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 
 // get components
-import { AuctionService} from '../service/auction.service';
+import { AuctionService } from '../service/auction.service';
 import { Auction } from '../model/auction.model';
 
 @Component({
@@ -17,10 +17,15 @@ export class AuctionsListComponent implements OnInit {
 
   constructor(
     private auctionService: AuctionService,
-    private router: Router ) { }
+    private router: Router,
+  ) { }
+
+  ngOnInit() {
+    this.getAuctions();
+  }
 
   // Get all of the auctions' info on init
-  ngOnInit() {
+  getAuctions() {
     this.auctionService.getAllAuctionsInfo().subscribe(
       res => {
         this.auctionsInfo = res as Auction[];
@@ -31,11 +36,16 @@ export class AuctionsListComponent implements OnInit {
     );
   }
 
+  // refresh auction list
+  refresh() {
+    this.getAuctions();
+  }
+
   // Go to the auction info page when user clicked on an auction
   onSelectAuction(selectAuction: Auction){
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "auctionName": selectAuction.auctionName
+        "auctionId": selectAuction._id
       }
     }
 

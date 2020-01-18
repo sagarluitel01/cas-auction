@@ -1,0 +1,166 @@
+<div class="container">
+    <h1>Edit Auction</h1>
+
+    <form #editAuctionForm="ngForm" (ngSubmit)="editAuctionForm.valid && onSubmit(editAuctionForm)">
+        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="auction._id">
+        
+        <div class="form-row border">
+            <div class="col">
+                <h5>Auction Details</h5>
+            </div>
+
+            <div class="col">
+                <h5>Current details</h5>
+            </div>
+
+            <div class="col">
+                <h5>New details</h5>
+            </div>
+        </div>
+
+
+        <div class="form-row border">
+            <div class="col">
+                <label>Auction Name:</label>
+            </div>
+            
+            <div class="col">
+                {{ auction.auctionName }}
+            </div>
+
+            <div class="col">
+                <!--Get auction name-->
+                <input type="text" #auctionName="ngModel" [(ngModel)]="auction.auctionName" name="auctionName" placeholder="Auction Name"
+                required  [ngClass]="{'invalid-textbox' :editAuctionForm.submitted && !auctionName.valid }" class="form-control">
+                <!--Validate auction name input-->
+                <div *ngIf="editAuctionForm.submitted && !auctionName.valid">
+                    <label class="text-danger">This field is required.</label>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="form-row border">
+            <div class="col">
+                <label>Organizer:</label>
+            </div>
+
+            <div class="col">
+                {{ auction.organizer }}
+            </div>
+
+            <div class="col">
+                <!--Get organizer-->
+                <input type="text" #organizer="ngModel" [(ngModel)]="auction.organizer" name="organizer" placeholder="Organizer"
+                required  [ngClass]="{'invalid-textbox' :editAuctionForm.submitted && !organizer.valid }" class="form-control">
+                <!--Validate organizer input-->
+                <div *ngIf="editAuctionForm.submitted && !organizer.valid">
+                    <label class="text-danger">This field is required.</label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row border">
+            <div class="col">
+                <label>Max Items:</label>
+            </div>
+
+            <div class="col">
+                {{ auction.maxItems }}
+            </div>
+
+            <div class="col">
+                <!--Get max items-->
+                <input type="number" #maxItems="ngModel" [(ngModel)]="auction.maxItems" name="maxItems" placeholder="Max Items"
+                required  [ngClass]="{'invalid-textbox' :editAuctionForm.submitted && !maxItems.valid }" class="form-control">
+                <!--Validate max items input-->
+                <div *ngIf="editAuctionForm.submitted && !maxItems.valid">
+                    <label class="text-danger">This field is required.</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row border">
+            <div class="col">
+                <label>Address:</label>
+            </div>
+
+            <div class="col">
+                {{ auction.address }}
+            </div>
+
+            <div class="col">
+                <!--Get address-->
+                <input type="text" #address="ngModel" [(ngModel)]="auction.address" name="address" placeholder="Address"
+                required  [ngClass]="{'invalid-textbox' :editAuctionForm.submitted && !address.valid }" class="form-control">
+                <!--Validate address input-->
+                <div *ngIf="editAuctionForm.submitted && !address.valid">
+                    <label class="text-danger">This field is required.</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-row border">
+            <div class="col">
+                <label>Date and Time:</label>
+            </div>
+
+            <div class="col">
+                {{ auction.dateTime | date: 'medium' }}
+            </div>
+
+            <div class="col">
+                <!--Get date and time-->
+                <input type="datetime-local" #dateTime="ngModel" [(ngModel)]="auction.dateTime" name="dateTime" placeholder="Date and Time"
+                required  [ngClass]="{'invalid-textbox' :editAuctionForm.submitted && !dateTime.valid }" class="form-control">
+                <!--Validate date and time input-->
+                <div *ngIf="editAuctionForm.submitted && !dateTime.valid">
+                    <label class="text-danger">This field is required.</label>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="form-row border">
+            <div class="col">
+                <label>Fee:</label>
+            </div>
+
+            <div class="col">
+                {{ auction.fee }}
+            </div>
+
+            <div class="col">
+                <!--Get fee-->
+                <input type="number" #fee="ngModel" [(ngModel)]="auction.fee" name="fee" placeholder="Fee"
+                required  [ngClass]="{'invalid-textbox' :editAuctionForm.submitted && !fee.valid }" class="form-control">
+                <!--Validate fee input-->
+                <div *ngIf="editAuctionForm.submitted && !fee.valid">
+                    <label class="text-danger">This field is required.</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+
+            <!--Submit button-->
+            <input class="btn btn-primary" type="submit" value="Edit Auction">
+
+            <button class="btn btn-danger" (click)="deleteAuction()">Delete Auction</button>
+            
+            <button class="btn btn-secondary" (click)="goBack()">Back</button>
+
+        </div>
+    </form>
+
+    <!-- Success message -->
+    <div class="success" *ngIf="showSucessMessage">
+        Edited successfully
+    </div>
+
+    <!-- Error message -->
+    <div class="alert" *ngIf="serverErrorMessages">
+        {{serverErrorMessages}}
+    </div>
+</div>

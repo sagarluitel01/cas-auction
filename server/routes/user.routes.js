@@ -12,11 +12,16 @@ const jwt = require('../config/jwt');
 //================================================
 // Register route
 userRouter.post('/register', (req, res, next) => {
+
+    // Get new user details
     var newUser = new User();
     newUser.firstName = req.body.firstName;
     newUser.lastName = req.body.lastName;
     newUser.email = req.body.email;
     newUser.password = req.body.password;
+    newUser.type = 'member';
+
+    // Save to the database
     newUser.save((err, doc) => {
         if (!err)
             res.send(doc);
@@ -30,6 +35,30 @@ userRouter.post('/register', (req, res, next) => {
     });
 });
 
+// Add Staff route
+userRouter.post('/addStaff', (req, res, next) => {
+
+    // Get new staff details
+    var newStaff = new User();
+    newStaff.firstName = req.body.firstName;
+    newStaff.lastName = req.body.lastName;
+    newStaff.email = req.body.email;
+    newStaff.password = req.body.password;
+    newStaff.type = 'staff';
+
+    // Save to the databse
+    newStaff.save((err, staff) => {
+        if (!err)
+            res.send(staff);
+        else
+        {
+            if (err.code == 11000)
+                res.status(422).send(['Duplicate email address found.']);
+            else
+                return next(err);
+        }
+    });
+});
 
 // Authenticate
 userRouter.post('/authenticate', (req, res, next) => {
@@ -56,7 +85,7 @@ userRouter.get('/dashboard', jwt.verifyJwtToken, (req, res, next) => {
             if (!user)
                 return res.status(404).json({ status: false, message: 'User record not found.' });
             else
-                return res.status(200).json({ status: true, user: _.pick(user, ['firstName', 'lastName', 'email']) });
+                return res.status(200).json({ status: true, user: _.pick(user, ['_id', 'firstName', 'lastName', 'email', 'type']) });
         });
 });
 

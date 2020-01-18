@@ -10,10 +10,10 @@ const Item = require('../models/item.model'); // get Item schema
 //==========================================
 // Add item route
 itemRouter.post('/addItem', (req, res) => {
-    
+
     // Get item values from the request
     var item = new Item();
-    item.auctionName = req.body.auctionName
+    item.auctionId = req.body.auctionId;
     item.itemCode = req.body.itemCode;
     item.itemName = req.body.itemName;
     item.description = req.body.description;
@@ -22,15 +22,15 @@ itemRouter.post('/addItem', (req, res) => {
     item.winnder = req.body.winner;
 
     // Find the auction to add the item
-    Auction.findOne({ auctionName: item.auctionName }, (err, auction) => {
-        
+    Auction.findById(item.auctionId, (err, auction) => {
+
         // If auction is found
         if (auction) {
-            console.log(auction);
 
             // If quantity of the item is more than the max items allow
             if (item.quantity > auction.maxItems){
                 res.write('Quantity is more than max items allow');
+                console.log('Quantity is more than max items allow');
             }
             // Save the item to the database
             else { 
@@ -40,6 +40,7 @@ itemRouter.post('/addItem', (req, res) => {
                     }
                     else {
                         res.send(err);
+                        console.log(err);
                     }
                 })
             }
@@ -50,9 +51,19 @@ itemRouter.post('/addItem', (req, res) => {
 });
 
 // Find item routes
-// Find all items route
-itemRouter.get('/findAllItem', (req, res) => {
-    Item.find((err, item) => {
+// Find all items in database route
+itemRouter.get('/findAllItems', (req, res) => {
+    Item.find(
+        (err, item) => {
+        if (!err) res.send(item);
+        else res.send(err);
+    });
+});
+
+// Find all items in an Auction route
+itemRouter.get('/findItemsInAuction/:auctionId', (req, res) => {
+    Item.find({ auctionId: req.params.auctionId },
+        (err, item) => {
         if (!err) res.send(item);
         else res.send(err);
     });

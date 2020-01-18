@@ -15,9 +15,13 @@ export class UserService {
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
-    // httpMethods
+  // httpMethods
   addUser(user: User){
     return this.http.post(environment.userUrl + '/register', user, this.noAuthHeader);
+  }
+
+  addStaff(staff: User){
+    return this.http.post(environment.userUrl + '/addStaff', staff, this.noAuthHeader);
   }
 
   login(authCredentials){

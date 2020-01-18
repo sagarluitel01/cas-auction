@@ -1,5 +1,5 @@
 export class Item {
-    auctionName: String;
+    auctionId: String;
     itemCode: String;
     itemName: String;
     description: String;

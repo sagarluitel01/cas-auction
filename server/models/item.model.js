@@ -3,9 +3,9 @@ const mongoose = require('mongoose'); // call mongoose
 
 // items schema
 var itemSchema = new mongoose.Schema({
-    auctionName: {
+    auctionId: {
         type: String,
-        required: 'Auction name can\'t be empty'
+        required: 'Auction id can\'t be empty'
     },
     itemCode: {
         type: String,

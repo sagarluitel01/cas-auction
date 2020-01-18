@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+    <h3>Participants will be at the auction:</h3>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <!--Refresh button-->
+        <button (click)="refresh()" class="btn-refresh">Refresh</button>
+      </div>
+    </div>
+</div>
+
+<div class="card" *ngFor="let participant of participantsInfo">
+    {{ participant.firstName }} {{ participant.lastName }}
+</div>

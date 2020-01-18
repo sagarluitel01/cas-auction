@@ -13,24 +13,28 @@ import { UserService } from '../service/user.service';
 })
 export class SignInComponent implements OnInit {
 
-  emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  serverErrorMessages: string;
-
   constructor(
     private userService: UserService,
     private router: Router ) { }
 
+  // Variables
+  emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  serverErrorMessages: string;
   user = {
     email: '',
     password: ''
   };
 
   ngOnInit() {
+    // Check if user is already logged in
     if(this.userService.isLoggedIn())
-    this.router.navigateByUrl('/dashboard');
+      // If user already logged in -> /dashboard
+      this.router.navigateByUrl('/dashboard');
   }
 
+  // Submit function
   onSubmit(form: NgForm){
+    // Call user login function from nodejs
     this.userService.login(form.value).subscribe(
       res => {
         this.userService.setToken(res['token']);

@@ -1,6 +1,7 @@
 // get built in
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from "@angular/router";
 
 // get components
 import { Item } from '../model/item.model';
@@ -15,24 +16,42 @@ export class AddItemComponent implements OnInit {
 
   showSucessMessage: boolean;
   serverErrorMessages: string;
+  auctionId: string;
 
-  constructor(private itemService: ItemService) { }
+  constructor(
+    private itemService: ItemService,
+    private activatedRoute: ActivatedRoute)
+    {
+      // Get the param value
+      this.activatedRoute.queryParams.subscribe(params => {
+      this.auctionId = params["auctionId"];
+      })
+    }
 
   item: Item = {
-    auctionName: '',
+    auctionId: this.auctionId,
     itemCode: '',
     itemName: '',
     description: '',
-    price: 0,
-    quantity: 0,
+    price: null,
+    quantity: null,
     winner: ''
   }
 
   ngOnInit() {
+    this.item.auctionId = this.auctionId;
   }
 
   onSubmit(form: NgForm) {
-    this.itemService.addItem(form.value).subscribe(
+    this.item.auctionId = this.auctionId;
+    this.item.itemCode = form.value.itemCode;
+    this.item.itemName = form.value.itemName;
+    this.item.description = form.value.description;
+    this.item.price = form.value.price;
+    this.item.quantity = form.value.quantity;
+    this.item.winner = form.value.winner;
+
+    this.itemService.addItem(this.item).subscribe(
       res => {
         this.showSucessMessage = true;
         setTimeout(() => this.showSucessMessage = false, 4000);
@@ -43,21 +62,22 @@ export class AddItemComponent implements OnInit {
           this.serverErrorMessages = err.error.join('<br/>');
         }
         else
-          this.serverErrorMessages = 'Something went wrong.Please contact admin.';
+          this.serverErrorMessages = 'Something went wrong. Please contact admin.';
       }
     );
   }
 
   resetForm(form: NgForm) {
     this.item = {
-      auctionName: '',
+      auctionId: this.auctionId,
       itemCode: '',
       itemName: '',
       description: '',
-      price: 0,
-      quantity: 0,
+      price: null,
+      quantity: null,
       winner: '',
     };
+
     form.resetForm();
     this.serverErrorMessages = '';
   }

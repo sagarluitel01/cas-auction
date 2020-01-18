@@ -13,20 +13,36 @@ import { User } from '../user/model/user.model';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(
+    private userService: UserService, 
+    private router: Router,
+    ) { }
 
   userDetails = new User;
+  staff;
 
   ngOnInit() {
+    this.getUser();
+  }
+
+  getUser(){
     this.userService.getUserProfile().subscribe(
       res => {
         this.userDetails = res['user'];
+
+        this.isStaff(); 
       },
       err => { 
         console.log(err);
-        
       }
     );
+  }
+
+  isStaff(){
+    if (this.userDetails.type == 'staff')
+      this.staff = true;
+    else
+      this.staff = false;
   }
 
   onLogout(){

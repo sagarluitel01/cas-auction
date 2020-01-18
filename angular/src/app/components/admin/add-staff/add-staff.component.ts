@@ -1,28 +1,28 @@
-// get built-in
+// get built in
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 // get components
-import { UserService } from '../service/user.service';
-import { User } from '../model/user.model';
+import { UserService } from '../../user/service/user.service';
+import { User } from '../../user/model/user.model';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['../user.component.css'],
+  selector: 'app-add-staff',
+  templateUrl: './add-staff.component.html',
+  styleUrls: ['./add-staff.component.css']
 })
+export class AddStaffComponent implements OnInit {
 
-export class SignUpComponent implements OnInit {
-
-  constructor(private userService: UserService) { }
-
-  // Variables
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   showSucessMessage: boolean;
   serverErrorMessages: string;
 
-  // New User object
-  user: User = {
+  constructor(private userService: UserService) { }
+
+  ngOnInit() {
+  }
+
+  staff: User = {
     _id: '',
     firstName: '',
     lastName: '',
@@ -31,13 +31,8 @@ export class SignUpComponent implements OnInit {
     type: '',
   }
 
-  ngOnInit() {
-  }
-
-  // Submit function
   onSubmit(form : NgForm) {
-    // Call addUser function from nodejs
-    this.userService.addUser(form.value).subscribe(
+    this.userService.addStaff(form.value).subscribe(
       res => {
         this.showSucessMessage = true;
         setTimeout(() => this.showSucessMessage = false, 4000);
@@ -53,9 +48,8 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  // Reset form function
   resetForm(form: NgForm) {
-    this.user = {
+    this.staff = {
       _id: '',
       firstName: '',
       lastName: '',

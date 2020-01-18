@@ -17,4 +17,8 @@ export class ItemService {
   addItem(item: Item){
     return this.http.post(environment.itemUrl + '/addItem', item);
   }
+
+  getItemsInAuction(auctionId: String){
+    return this.http.get(environment.itemUrl + '/findItemsInAuction/' + auctionId);
+  }
 }

@@ -1,15 +1,31 @@
-<div class="card-container">
-    <div class="card" *ngFor="let auc of auctionsInfo" (click)="onSelectAuction(auc)">
-        <h1>{{ auc.auctionName }}</h1>
-        <p>Organizer:</p>
-        <p class="info">{{ auc.organizer }}</p>
-        <p class="number">Max Items: <span class="info">{{ auc.maxItems }}</span></p>
-        <p>Address:</p>
-        <p class="info">{{ auc.address }}</p>
-        <p>Date and Time:</p>
-        <p class="info">{{ auc.dateTime }}</p>
-        <p class="number">Fee: <span class="info">{{ auc.fee }}</span></p>
-        <p><button (click)="auctionSignup()">Sign up</button></p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+    <h3>Upcoming Auction</h3>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button (click)="refresh()" class="btn-refresh">Refresh</button>
+      </div>
     </div>
 </div>
-    
+
+<div class="container">
+<div class="card-container">
+<div *ngFor="let auc of auctionsInfo" (click)="onSelectAuction(auc)">
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="../../../assets/auction-fish.jpeg" class="card-img" alt="...">
+      </div>
+
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-title">{{ auc.auctionName }}</h3>
+          <p class="card-text">Organizer: {{ auc.organizer }}</p>
+          <p class="card-text">Address: {{ auc.address }}</p>
+          <p class="card-text">Date and Time: {{ auc.dateTime| date: "medium" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 // this fixed an error with mongoose
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 // connect to database
 mongoose.connect(config.database,

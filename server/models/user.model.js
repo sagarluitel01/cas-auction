@@ -27,6 +27,11 @@ var userSchema = new mongoose.Schema({
         minlength: [6, 'Password must be atleast 6 characters!'],
     },
 
+    type: {
+        type: String,
+        required: 'User type can\'t be empty',
+    },
+
     saltSecret: String
 });
 
@@ -57,7 +62,7 @@ userSchema.methods.generateJwt = function() {
     return jwt.sign({ _id: this._id },
         process.env.JWT_SECRET || "SECRET#123",
         {
-            expiresIn: process.env.JWT_EXP || "10m"
+            expiresIn: process.env.JWT_EXP || "30m"
         });
 };
 

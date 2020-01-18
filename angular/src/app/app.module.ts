@@ -22,6 +22,10 @@ import { AuctionsComponent } from './components/auctions/auctions.component';
 import { AuctionsListComponent } from './components/auctions-list/auctions-list.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { CartComponent } from './components/cart/cart.component';
+import { ItemListComponent } from './components/item-list/item-list.component';
+import { AuctionEditComponent } from './components/auction-edit/auction-edit.component';
+import { AddStaffComponent } from './components/admin/add-staff/add-staff.component';
+import { ParticipantsListComponent } from './components/participants-list/participants-list.component';
 
 // routes
 const appRoutes: Routes = [
@@ -51,19 +55,13 @@ const appRoutes: Routes = [
   { 
     path: 'admin', component: AdminComponent 
   },
-  // url: 'admin/createAuction'
-  {
-    path: 'admin', component: AdminComponent,
-    children: [{ path: 'createAuction', component: CreateAuctionComponent }]
-  },
   // url: 'auctions
   {
     path: 'auctions', component: AuctionsComponent
   },
-  // url: 'auctions/addItem'
+  // url: 'edit'
   {
-    path: 'auctions', component: AuctionsComponent,
-    children: [{ path: 'addItem', component: AddItemComponent }]
+    path: 'editAuction/:id', component: AuctionEditComponent
   }
 ]
 
@@ -80,7 +78,11 @@ const appRoutes: Routes = [
     AuctionsComponent,
     AuctionsListComponent,
     AddItemComponent,
-    CartComponent
+    CartComponent,
+    ItemListComponent,
+    AuctionEditComponent,
+    AddStaffComponent,
+    ParticipantsListComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ const _ = require('lodash');
 
 // get files
 const Auction = require('../models/auction.model'); // get Auction schema
+const User = require('../models/user.model'); // get User schema
 
 // routes for all auction routes
 //================================================
@@ -48,20 +49,9 @@ auctionRouter.get('/findAllAuctions', (req, res) => {
     });
 });
 
-// Find one auction route using req
-auctionRouter.get('/findAuction', (req, res) => {
-    Auction.findOne({ auctionName: req.body.auctionName },
-        (err, auction) => {
-            if (!auction)
-                return res.status(404).json({ status: false, message: 'Auction record not found.' });
-            else
-                return res.status(200).json({ status: true, auction : _.pick(auction, ['auctionName', 'organizer']) });
-        })
-});
-
-// Find one auction route using param
-auctionRouter.get('/findAuction/:auctionName', (req, res) => {
-    Auction.findOne({auctionName: req.params.auctionName},
+// Find auction by id on the params route
+auctionRouter.get('/findAuctionById/:id', (req, res) => {
+    Auction.findById(req.params.id,
         (err, auction) => {
         if (!err) { 
             res.send(auction);
@@ -70,21 +60,81 @@ auctionRouter.get('/findAuction/:auctionName', (req, res) => {
     })
 });
 
-// Edit auction route
-auctionRouter.get('/editAuction');
+// Edit auction by id on the params route
+auctionRouter.put('/editAuction/:id', (req, res) => {
+
+    // Get new edit auction info
+    var editAuction = new Auction({
+        _id: req.body._id,
+        auctionName: req.body.auctionName,
+        organizer: req.body.organizer,
+        maxItems: req.body.maxItems,
+        address: req.body.address,
+        dateTime: req.body.dateTime,
+        fee: req.body.fee,
+    });
+    
+    // Find auction by id and update
+    Auction.findByIdAndUpdate(req.params.id, { $set: editAuction }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else {console.log('Error in updating auction :' + JSON.stringify(err, undefined, 2));}
+    });
+});
+
+// Participate in auction route
+auctionRouter.post('/participateAuction/:id', (req, res) => {
+
+    // get participant id from request body
+    participantID = req.body.participantID;
+
+    // If participant id valid
+    if (participantID) {
+        // Find the auction and add the participant id value to the database
+        Auction.findByIdAndUpdate(req.params.id, { $addToSet: { participantID: participantID }}, (err, auction) => {
+            if (auction) {
+                res.send(auction);
+            }
+            else {
+                res.send(err);
+            }
+        })
+    }
+    else {
+        console.log("Invalid participantID");
+    }
+});
+
+// Get all participants in auction route
+auctionRouter.get('/auctionParticipants/:id', (req, res) => {
+
+    // Find auction by id on the params
+    Auction.findById(req.params.id, (err, auction) => {
+        // If auction is found
+        if (auction){
+
+            // Get all of the participants id
+            participantsID = auction.participantID;
+
+            // Then find the user info of each participants by participants id
+            User.find({_id: participantsID}, (err, participants) => {
+                if (participants){
+                    res.send(participants);
+                }
+                else {
+                    res.send(err);
+                }
+            })
+        }
+        else{
+            console.log(err);
+        }
+    })
+});
 
 // Delete auction routes
 // delete auction by id on the parameter
 auctionRouter.delete('/deleteAuction/:id', (req, res) => {
     Auction.findByIdAndDelete(req.params.id, (err, auction) => {
-        if (!err) { res.send(auction);}
-        else { res.send(err);}
-    })
-});
-
-// delete auction by name through json
-auctionRouter.delete('/deleteAuction', (req, res) => {
-    Auction.findOneAndDelete(req.body.auctionName, (err, auction) => {
         if (!err) { res.send(auction);}
         else { res.send(err);}
     })

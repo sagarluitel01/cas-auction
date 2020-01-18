@@ -16,15 +16,18 @@ export class CreateAuctionComponent implements OnInit {
   showSucessMessage: boolean;
   serverErrorMessages: string;
 
-  constructor(private auctionService: AuctionService) { }
+  constructor(
+    private auctionService: AuctionService
+  ) { }
 
   auction: Auction = {
+    _id: '',
     auctionName: '',
     organizer: '',
-    maxItems: 0,
+    maxItems: null,
     address: '',
     dateTime: new Date(),
-    fee: 0
+    fee: null
   }
 
   ngOnInit() {
@@ -49,12 +52,13 @@ export class CreateAuctionComponent implements OnInit {
 
   resetForm(form: NgForm) {
     this.auction = {
+      _id: '',
       auctionName: '',
       organizer: '',
-      maxItems: 0,
+      maxItems: null,
       address: '',
       dateTime: new Date(),
-      fee: 0
+      fee: null
     };
     form.resetForm();
     this.serverErrorMessages = '';

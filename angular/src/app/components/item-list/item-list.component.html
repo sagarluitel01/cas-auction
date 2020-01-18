@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+    <h3>Items will be sell at auction:</h3>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <!--Refresh button-->
+        <button (click)="refresh()" class="btn-refresh">Refresh</button>
+      </div>
+    </div>
+</div>
+
+<!--Display items in a card container-->
+<div class="card-container border-bottom">
+  <!--Display each items in the list-->
+    <div class="card" *ngFor="let item of itemInfo">
+        <!-- <img src="..." class="card-img-top"> -->
+        <h1>{{ item.itemName }}</h1>
+        <p>Item code:</p>
+        <p class="info">{{ item.itemCode }}</p>
+        <p class="number">Price: <span class="info">{{ item.price | currency }}</span></p>
+        <p>Description:</p>
+        <p class="info">{{ item.description }}</p>
+        <p class="number">Quantity: <span class="info">{{ item.quantity }}</span></p>
+        <p><button>View Info</button></p>
+    </div>
+</div>

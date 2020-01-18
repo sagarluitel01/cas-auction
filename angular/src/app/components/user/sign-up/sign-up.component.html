@@ -3,13 +3,14 @@
     <img src="/assets/user/images/users.png" id="icon" alt="User Icon"/>
 </div>
 
+<!--Sign up form-->
 <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
     <!--Get user first name-->
     <input type="text" #firstName="ngModel" [(ngModel)]="user.firstName" name="firstName" placeholder="First Name"
     required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !firstName.valid }">
     <!--Validate user first name input-->
     <div *ngIf="signUpForm.submitted && !firstName.valid">
-            <label class="validation-message">This field is required.</label>
+        <label class="validation-message">This field is required.</label>
     </div>
 
     <!--Get user last name-->
@@ -17,7 +18,7 @@
     required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !lastName.valid }">
     <!--Validate user last name input-->
     <div *ngIf="signUpForm.submitted && !lastName.valid">
-            <label class="validation-message">This field is required.</label>
+        <label class="validation-message">This field is required.</label>
     </div>
 
     <!--Get user email-->
@@ -25,8 +26,8 @@
     required [pattern]="emailRegex"  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !email.valid }">
     <!--Validate user email-->
     <div *ngIf="signUpForm.submitted && email.errors">
-            <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
-            <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
+        <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
+        <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
     </div>
 
     <!--Get user password-->
@@ -34,8 +35,8 @@
     minlength="4" required [ngClass]="{'invalid-textbox' :signUpForm.submitted && !password.valid }">
     <!--Validate user password-->
     <div *ngIf="signUpForm.submitted && password.errors">
-            <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
-            <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 4 characters.</label>
+        <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+        <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 4 characters.</label>
     </div>
 
     <!--Submit button-->

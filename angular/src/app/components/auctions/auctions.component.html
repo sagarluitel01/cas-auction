@@ -1,9 +1,86 @@
-<h1>Auction Name: {{ auctionInfo.auctionName }}</h1>
-<p>Organizer: {{ auctionInfo.organizer }}</p>
-<p>Max Items: {{ auctionInfo.maxItems }}</p>
-<p>Address: {{ auctionInfo.address }}</p>
-<p>Date and Time: {{ auctionInfo.dateTime }}</p>
-<p>Fee: {{ auctionInfo.fee }}</p>
-<a class="card" routerLink="/">Participate</a>
-<a class="card" routerLink="/auctions/addItem/">Add Item</a>
-<app-add-item></app-add-item>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Colorado Aquarium Society</a>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" (click)="onLogout()">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+  
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active">
+                  Auction <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/dashboard">
+                  Dashboard
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+  
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">Auction Name: {{ auctionInfo.auctionName }}</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                    <span>Welcome! <a href="#">{{ userDetails.firstName }}</a> [ {{ userDetails.type }} ]</span>
+                </div>
+                </div>
+            </div>
+  
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <table class="table table-striped table-sm">
+                    <tbody>
+                        <tr>
+                            <td>Organizer:</td>
+                            <td>{{ auctionInfo.organizer }}</td>
+                        </tr>
+                        <tr>
+                            <td>Max Items:</td>
+                            <td>{{ auctionInfo.maxItems }}</td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td>{{ auctionInfo.address }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date and Time:</td>
+                            <td>{{ auctionInfo.dateTime | date: "medium" }}</td>
+                        </tr>
+                        <tr>
+                            <td>Fee:</td>
+                            <td>{{ auctionInfo.fee | currency }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <button type="button" class="btn btn-outline-primary" (click)="onParticipate()">Participate</button>
+                <button type="button" class="btn btn-outline-primary" routerLink="/dashboard">Dashboard</button>
+                <button type="button" class="btn btn-outline-primary" routerLink="/editAuction/{{ auctionInfo._id }}">Edit</button>
+                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#sellItemModal">
+                    Sell item
+                </button>
+                <button type="button" class="btn btn-outline-primary" routerLink="/">Start Live Auction</button>
+            </div>
+
+            <div class="modal fade" id="sellItemModal" tabindex="-1" role="dialog" aria-labelledby="sellItemModal" aria-hidden="true">        
+                <app-add-item></app-add-item>
+            </div>
+            
+            <app-item-list></app-item-list>  
+            <app-participants-list></app-participants-list>
+        </main>
+      </div>
+    </div>
+</body>

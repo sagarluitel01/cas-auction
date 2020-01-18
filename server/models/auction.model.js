@@ -27,6 +27,10 @@ var auctionSchema = new mongoose.Schema({
     fee: {
         type: Number
     },
+    participantID: [{
+        type: String,
+        unique: true
+    }],
 });
 
 // create Auction model schema

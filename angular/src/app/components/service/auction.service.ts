@@ -14,7 +14,6 @@ export class AuctionService {
   constructor(private http: HttpClient) { }
 
   // httpMethods
-
   createAuction(auction: Auction){
     return this.http.post(environment.auctionUrl + '/createAuction', auction);
   }
@@ -23,7 +22,23 @@ export class AuctionService {
     return this.http.get(environment.auctionUrl + '/findAllAuctions');
   }
 
-  getAuctionInfo(auctionName: String){
-    return this.http.get(environment.auctionUrl + '/findAuction/' + auctionName);
+  getAuctionInfoById(id: String){
+    return this.http.get(environment.auctionUrl + '/findAuctionById/' + id);
+  }
+
+  editAuction(auction: Auction){
+    return this.http.put(environment.auctionUrl + '/editAuction/' + auction._id, auction);
+  }
+
+  participateAuction(auctionID: String, participantID: String){
+    return this.http.post(environment.auctionUrl + '/participateAuction/' + auctionID, { participantID });
+  }
+
+  deleteAuction(id: String){
+    return this.http.delete(environment.auctionUrl + '/deleteAuction/' + id);
+  }
+
+  getAuctionParticipants(id: String){
+    return this.http.get(environment.auctionUrl + '/auctionParticipants/' + id);
   }
 }

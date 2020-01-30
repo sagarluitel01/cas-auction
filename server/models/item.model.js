@@ -23,12 +23,19 @@ var itemSchema = new mongoose.Schema({
         type: Number,
         require: 'Price can\'t be empty'
     },
+    finalPrice: {
+        type: Number,
+    },
     quantity: {
         type: Number,
         require: 'Quantity can\'t be empty or lesser than 1',
         min: 1,
     },
-    winner: {
+    sellerID: {
+        type: String,
+        require: 'Seller id can\'t be empty'
+    },
+    buyerID: {
         type: String
     }
 });

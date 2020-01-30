@@ -1,13 +1,42 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-    <h3>Participants will be at the auction:</h3>
+    <h3>Participants:</h3>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group mr-2">
         <!--Refresh button-->
-        <button (click)="refresh()" class="btn-refresh">Refresh</button>
+        <button (click)="refresh()" class="btn-refresh">
+            <img src="../../../assets/icons/refresh-cw.svg">
+            Refresh</button>
       </div>
     </div>
 </div>
 
-<div class="card" *ngFor="let participant of participantsInfo">
-    {{ participant.firstName }} {{ participant.lastName }}
-</div>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Bidder #</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Email</th>
+            <th scope="col">Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let participant of participantsInfo; let i = index">
+            <th scope="row">
+                {{ i + 1 }}
+            </th>
+            <td>
+                {{ participant.firstName }}
+            </td>
+            <td>
+                {{ participant.lastName }}
+            </td>
+            <td>
+                {{ participant.email }}
+            </td>
+            <td>
+                {{ participant.type }}
+            </td>
+        </tr>
+    </tbody>
+</table>

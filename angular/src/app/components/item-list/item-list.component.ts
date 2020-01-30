@@ -15,18 +15,13 @@ export class ItemListComponent implements OnInit {
 
   constructor(
     private itemService: ItemService,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
   ) 
-  {
-    // Get the param value
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.auctionId = params["auctionId"];
-    })
-  }
+  {}
 
   // Variables
   itemInfo;
-  auctionId;
+  auctionId = this.route.snapshot.paramMap.get('id');;
 
   ngOnInit() {
     this.getItems();

@@ -3,7 +3,8 @@
 
     <form #editAuctionForm="ngForm" (ngSubmit)="editAuctionForm.valid && onSubmit(editAuctionForm)">
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="auction._id">
-        
+        <input type="hidden" name="participantID" #participantID="ngModel" [(ngModel)]="auction.participantID">
+
         <div class="form-row border">
             <div class="col">
                 <h5>Auction Details</h5>

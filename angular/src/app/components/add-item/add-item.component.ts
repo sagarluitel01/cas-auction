@@ -6,6 +6,8 @@ import { ActivatedRoute } from "@angular/router";
 // get components
 import { Item } from '../model/item.model';
 import { ItemService } from '../service/item.service';
+import { UserService } from '../user/service/user.service';
+import { User } from '../user/model/user.model';
 
 @Component({
   selector: 'app-add-item',
@@ -16,30 +18,33 @@ export class AddItemComponent implements OnInit {
 
   showSucessMessage: boolean;
   serverErrorMessages: string;
-  auctionId: string;
+  auctionId = this.route.snapshot.paramMap.get('id');
+  userDetails = new User();
+  sellerID: String;
 
   constructor(
     private itemService: ItemService,
-    private activatedRoute: ActivatedRoute)
-    {
-      // Get the param value
-      this.activatedRoute.queryParams.subscribe(params => {
-      this.auctionId = params["auctionId"];
-      })
-    }
+    private route: ActivatedRoute,
+    private userService: UserService,
+    )
+    {}
 
   item: Item = {
+    _id: '',
     auctionId: this.auctionId,
     itemCode: '',
     itemName: '',
     description: '',
     price: null,
+    finalPrice: null,
     quantity: null,
-    winner: ''
+    sellerID: '',
+    buyerID: '',
   }
 
   ngOnInit() {
     this.item.auctionId = this.auctionId;
+    this.getUser();
   }
 
   onSubmit(form: NgForm) {
@@ -49,7 +54,7 @@ export class AddItemComponent implements OnInit {
     this.item.description = form.value.description;
     this.item.price = form.value.price;
     this.item.quantity = form.value.quantity;
-    this.item.winner = form.value.winner;
+    this.item.sellerID = this.sellerID;
 
     this.itemService.addItem(this.item).subscribe(
       res => {
@@ -69,16 +74,31 @@ export class AddItemComponent implements OnInit {
 
   resetForm(form: NgForm) {
     this.item = {
+      _id: '',
       auctionId: this.auctionId,
       itemCode: '',
       itemName: '',
       description: '',
       price: null,
+      finalPrice: null,
       quantity: null,
-      winner: '',
+      sellerID: '',
+      buyerID: '',
     };
 
     form.resetForm();
     this.serverErrorMessages = '';
+  }
+
+  getUser(){
+    this.userService.getUserProfile().subscribe(
+      res => {
+        this.userDetails = res['user'];
+        this.sellerID = this.userDetails._id;
+      },
+      err => { 
+        console.log(err);
+      }
+    );
   }
 }

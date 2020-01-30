@@ -6,4 +6,5 @@ export class Auction {
     address: String;
     dateTime: Date;
     fee: Number;
+    participantID: String[];
 }

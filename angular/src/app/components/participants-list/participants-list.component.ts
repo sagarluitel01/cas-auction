@@ -15,17 +15,12 @@ export class ParticipantsListComponent implements OnInit {
 
   constructor(
     private auctionService: AuctionService,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
   ) 
-  {
-    // Get the param value
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.auctionId = params["auctionId"];
-    })
-  }
+  {}
 
   // Variables
-  auctionId;
+  auctionId = this.route.snapshot.paramMap.get('id');;
   participantsInfo;
 
   ngOnInit() {

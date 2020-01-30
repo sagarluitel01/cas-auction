@@ -16,21 +16,17 @@ import { User } from '../user/model/user.model';
 })
 export class AuctionsComponent implements OnInit {
 
-  auctionId;
+  auctionId = this.route.snapshot.paramMap.get('id');
   auctionInfo = new Auction();
   userDetails = new User();
 
   constructor(
     private auctionService: AuctionService,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private userService: UserService,
     private router: Router,
-  ){
-      // Get the param value
-      this.activatedRoute.queryParams.subscribe(params => {
-      this.auctionId = params["auctionId"];
-    })
-  }
+  )
+  {}
 
   // Load the selected auction info
   ngOnInit() {

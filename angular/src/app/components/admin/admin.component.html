@@ -3,7 +3,10 @@
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Colorado Aquarium Society</a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" (click)="onLogout()">Sign out</a>
+                <a class="nav-link" (click)="onLogout()">
+                    <img src="../../../assets/icons/log-out.svg">
+                    Sign out
+                </a>
             </li>
         </ul>
     </nav>
@@ -15,12 +18,14 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active">
-                            Administration <span class="sr-only">(current)</span>
+                                <img src="../../../assets/icons/settings-blue.svg">
+                                Administration <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" routerLink="/dashboard">
-                            Dashboard
+                                <img src="../../../assets/icons/home-black.svg">
+                                Dashboard
                             </a>
                         </li>
                     </ul>
@@ -38,10 +43,12 @@
                 </div>
         
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createAuctionModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAuctionModal">
+                        <img src="../../../assets/icons/file-plus.svg">
                         Create Auction
                     </button>
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addStaffModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStaffModal">
+                        <img src="../../../assets/icons/user-plus.svg">
                         Add Staff
                     </button>
                 </div>

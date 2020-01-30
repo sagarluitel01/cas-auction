@@ -26,6 +26,8 @@ import { ItemListComponent } from './components/item-list/item-list.component';
 import { AuctionEditComponent } from './components/auction-edit/auction-edit.component';
 import { AddStaffComponent } from './components/admin/add-staff/add-staff.component';
 import { ParticipantsListComponent } from './components/participants-list/participants-list.component';
+import { LiveAuctionComponent } from './components/live-auction/live-auction.component';
+import { CheckOutComponent } from './components/check-out/check-out.component';
 
 // routes
 const appRoutes: Routes = [
@@ -57,11 +59,23 @@ const appRoutes: Routes = [
   },
   // url: 'auctions
   {
-    path: 'auctions', component: AuctionsComponent
+    path: 'auctions/:id', component: AuctionsComponent
   },
-  // url: 'edit'
+  // url: 'editAuction'
   {
     path: 'editAuction/:id', component: AuctionEditComponent
+  },
+  // url: 'live'
+  {
+    path: 'live/:id', component: LiveAuctionComponent
+  },
+  // url: 'cart'
+  {
+    path: 'cart', component: CartComponent
+  },
+  // url: 'check-out'
+  {
+    path: 'checkout', component: CheckOutComponent
   }
 ]
 
@@ -82,7 +96,9 @@ const appRoutes: Routes = [
     ItemListComponent,
     AuctionEditComponent,
     AddStaffComponent,
-    ParticipantsListComponent
+    ParticipantsListComponent,
+    LiveAuctionComponent,
+    CheckOutComponent
   ],
   imports: [
     BrowserModule,

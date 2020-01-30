@@ -72,6 +72,7 @@ auctionRouter.put('/editAuction/:id', (req, res) => {
         address: req.body.address,
         dateTime: req.body.dateTime,
         fee: req.body.fee,
+        participantID: req.body.participantID,
     });
     
     // Find auction by id and update

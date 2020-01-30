@@ -2,30 +2,32 @@
     <h3>Upcoming Auction</h3>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group mr-2">
-        <button (click)="refresh()" class="btn-refresh">Refresh</button>
+        <button (click)="refresh()" class="btn-refresh">
+          <img src="../../../assets/icons/refresh-cw.svg">
+          Refresh
+        </button>
       </div>
     </div>
 </div>
 
-<div class="container">
-<div class="card-container">
-<div *ngFor="let auc of auctionsInfo" (click)="onSelectAuction(auc)">
-  <div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <img src="../../../assets/auction-fish.jpeg" class="card-img" alt="...">
-      </div>
-
-      <div class="col-md-8">
-        <div class="card-body">
-          <h3 class="card-title">{{ auc.auctionName }}</h3>
-          <p class="card-text">Organizer: {{ auc.organizer }}</p>
-          <p class="card-text">Address: {{ auc.address }}</p>
-          <p class="card-text">Date and Time: {{ auc.dateTime| date: "medium" }}</p>
-        </div>
+<div class="album py-5 bg-light">
+  <div class="card-container">
+    <div class="row">
+      <div *ngFor="let auc of auctionsInfo" routerLink="/auctions/{{ auc._id }}" class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img src="../../../assets/logo.png" class="card-img border">
+ 
+            <div class="card-body text-center">
+              <h4 class="card-title"><b>{{ auc.auctionName }}</b></h4>
+              <p class="card-text"><b>Organizer:</b></p>
+              <p class="card-text">{{ auc.organizer }}</p>
+              <p class="card-text"><b>Address:</b></p>
+              <p class="card-text">{{ auc.address }}</p>
+              <p class="card-text"><b>Date and Time:</b></p>
+              <p class="card-text">{{ auc.dateTime| date: "medium" }}</p>
+            </div>
+          </div>
       </div>
     </div>
   </div>
-</div>
-</div>
 </div>

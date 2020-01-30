@@ -1,8 +1,10 @@
+// get built in
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 
+// get components
 import { Auction } from '../model/auction.model';
 import { AuctionService } from '../service/auction.service';
 
@@ -14,7 +16,6 @@ import { AuctionService } from '../service/auction.service';
 export class AuctionEditComponent implements OnInit {
 
   id = this.route.snapshot.paramMap.get('id');
-  auctionInfo = new Auction();
   auction = new Auction();
   showSucessMessage: boolean;
   serverErrorMessages: string;
@@ -29,8 +30,7 @@ export class AuctionEditComponent implements OnInit {
   ngOnInit() {
     this.auctionService.getAuctionInfoById(this.id).subscribe(
       res => {
-        this.auctionInfo = res as Auction;
-        this.auction = this.auctionInfo;
+        this.auction = res as Auction;
       },
       err => {
         console.log(err);
@@ -43,14 +43,8 @@ export class AuctionEditComponent implements OnInit {
       (res) => {
         this.showSucessMessage = true;
         setTimeout(() => this.showSucessMessage = false, 4000);
-        
-        let navigationExtras: NavigationExtras = {
-          queryParams: {
-            "auctionId": this.id
-          }
-        }
 
-        this.router.navigate(['/auctions'], navigationExtras)
+        this.router.navigate(['/auctions/', this.id])
       },
       err => {
         if (err.status === 422) {

@@ -3,7 +3,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Colorado Aquarium Society</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" (click)="onLogout()">Sign out</a>
+          <a class="nav-link" (click)="onLogout()"><img src="../../../assets/icons/log-out.svg">  Sign out</a>
         </li>
       </ul>
     </nav>
@@ -15,32 +15,33 @@
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active">
-                  <span data-feather="home"></span>
+                  <img src="../../../assets/icons/home-blue.svg">
                   Dashboard <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <span data-feather="file"></span>
+                  <img src="../../../assets/icons/file-black.svg">
                   Orders
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="shopping-cart"></span>
+                <a class="nav-link" routerLink="/cart">
+                  <img src="../../../assets/icons/shopping-cart-black.svg">
                   Cart
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
+                  <img src="../../../assets/icons/user-black.svg">
                   Profile
                 </a>
               </li>
               <div *ngIf="staff">
                 <li class="nav-item">
                   <a class="nav-link" routerLink="/admin">
-                    Administration
+                    <img src="../../../assets/icons/settings-black.svg">
+                    Admin
                   </a>
                 </li>
               </div>
@@ -59,11 +60,23 @@
           </div>
   
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-              <button type="button" class="btn btn-outline-primary" routerLink="/">Orders</button>
-              <button type="button" class="btn btn-outline-primary" routerLink="/">Cart</button>
-              <button type="button" class="btn btn-outline-primary" routerLink="/">Profile</button>
+              <button type="button" class="btn btn-primary" routerLink="/">
+                <img src="../../../assets/icons/file-white.svg"> 
+                Orders
+              </button>
+              <button type="button" class="btn btn-primary" routerLink="/cart">
+                <img src="../../../assets/icons/shopping-cart-white.svg"> 
+                Cart
+              </button>
+              <button type="button" class="btn btn-primary" routerLink="/">
+                <img src="../../../assets/icons/user-white.svg">
+                Profile
+              </button>
               <div *ngIf="staff">
-                <button type="button" class="btn btn-outline-primary" routerLink="/admin">Administration</button>
+                <button type="button" class="btn btn-primary" routerLink="/admin">
+                  <img src="../../../assets/icons/settings-white.svg">
+                  Admin
+                </button>
               </div>
           </div>
   

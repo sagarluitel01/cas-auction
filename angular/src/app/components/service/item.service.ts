@@ -21,4 +21,12 @@ export class ItemService {
   getItemsInAuction(auctionId: String){
     return this.http.get(environment.itemUrl + '/findItemsInAuction/' + auctionId);
   }
+
+  sellItem(item: Item){
+    return this.http.post(environment.itemUrl + '/sellItem/' + item._id, item);
+  }
+
+  getBuyerItems(buyerID: String){
+    return this.http.get(environment.itemUrl + '/getBuyerItems/' + buyerID);
+  }
 }

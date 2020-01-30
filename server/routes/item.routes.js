@@ -19,7 +19,7 @@ itemRouter.post('/addItem', (req, res) => {
     item.description = req.body.description;
     item.price = req.body.price;
     item.quantity = req.body.quantity;
-    item.winnder = req.body.winner;
+    item.sellerID = req.body.sellerID;
 
     // Find the auction to add the item
     Auction.findById(item.auctionId, (err, auction) => {
@@ -90,6 +90,34 @@ itemRouter.get('/editItem');
 itemRouter.delete('/deleteItem/:id', (req, res) => {
     Item.findByIdAndDelete(req.params.id, (err, item) => {
         if (!err) { res.send(item);}
+        else { res.send(err);}
+    });
+});
+
+// Sell item route
+itemRouter.post('/sellItem/:id', (req, res) => {
+
+    finalPrice = req.body.finalPrice;
+    buyerID = req.body.buyerID;
+
+    Item.findByIdAndUpdate(req.params.id, { $set: { finalPrice: finalPrice, buyerID: buyerID }}, (err, item) => {
+        if (item){
+            res.send(item);
+        }
+        else{
+            res.send(err);
+        }
+    })
+});
+
+// Get item by buyer route
+itemRouter.get('/getBuyerItems/:buyerID', (req, res) => {
+
+    Item.find({ buyerID: req.params.buyerID },
+        (err, items) => {
+        if (!err) { 
+            res.send(items);
+        }
         else { res.send(err);}
     });
 });

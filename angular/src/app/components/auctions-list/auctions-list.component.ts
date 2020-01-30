@@ -1,6 +1,5 @@
 // get built in
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
 
 // get components
 import { AuctionService } from '../service/auction.service';
@@ -17,7 +16,6 @@ export class AuctionsListComponent implements OnInit {
 
   constructor(
     private auctionService: AuctionService,
-    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -39,16 +37,5 @@ export class AuctionsListComponent implements OnInit {
   // refresh auction list
   refresh() {
     this.getAuctions();
-  }
-
-  // Go to the auction info page when user clicked on an auction
-  onSelectAuction(selectAuction: Auction){
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        "auctionId": selectAuction._id
-      }
-    }
-
-    this.router.navigate(['/auctions'], navigationExtras);
   }
 }
